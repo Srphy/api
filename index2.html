@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    
+  	<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"/>
+	
+	<link rel="preconnect" href="https://fonts.gstatic.com"/>
+	<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet"/>
+
+	<script src="./src/threex.domevents.js"></script>
+	<script src="./src/threex.keyboardstate.js"></script>
+	
+	<script src="./src/jquery.min.js"></script>
+	<script src="./build/three.js"></script>
+	<script src="./examples/js/libs/dat.gui.min.js"></script>
+	
+  	<script src="./examples/js/controls/OrbitControls.js"></script>
+  	<script src="./examples/js/controls/DragControls.js"></script>
+	<script src="./examples/js/loaders/OBJLoader.js"></script>
+
+	<script src="./examples/js/postprocessing/EffectComposer.js"></script>
+	<script src="./examples/js/postprocessing/RenderPass.js"></script>
+
+	<script src="./examples/js/postprocessing/SMAAPass.js"></script>
+	<script src="./examples/js/shaders/SMAAShader.js"></script>
+
+	<script src="./examples/js/postprocessing/UnrealBloomPass.js"></script>
+	<script src="./examples/js/shaders/LuminosityHighPassShader.js"></script>
+	
+	<script src="./examples/js/postprocessing/SAOPass.js"></script>
+	<script src="./examples/js/postprocessing/ShaderPass.js"></script>
+	<script src="./examples/js/shaders/CopyShader.js"></script>
+	<script src="./examples/js/shaders/SAOShader.js"></script>
+	<script src="./examples/js/shaders/UnpackDepthRGBAShader.js"></script>
+	<script src="./examples/js/shaders/DepthLimitedBlurShader.js"></script>
+	<script src="./examples/js/math/SimplexNoise.js"></script>
+	<script src="./examples/js/objects/Lensflare.js"></script>
+    
+  <style>
+
+html, body {
+    height: 100%;
+      width: 100%;
+      overflow: hidden;
+      }
+  
+  body {
+      background-color: transparent;
+      position: absolute;
+      color: #000;
+      margin: 0 !important;
+      overflow: hidden;
+      display: -webkit-box;
+      display: flex;
+      font-family: 'Share Tech Mono', monospace;
+      /*width: auto;
+      height: auto;*/
+      }
+     
+  a {
+      color: #080;
+      }
+      
+  canvas {
+      display: block;
+      }
+  
+  #ui {
+      display: visible;
+      width: 100%;
+      height: 100%;
+  }    
+
+  #frame {
+      position: absolute;
+      width: 100%;
+      height: 35px;
+      background-color: #29304c;
+      opacity: 1;
+      box-shadow: 5px 5px 5px 0px rgba(0,0,0,0);
+      z-index: 2;
+  }
+  
+  #frame::before {
+      content: "";
+      position: absolute;
+      background-color: transparent;
+      bottom: -50px;
+      height: 50px;
+      width: 25px;
+      border-top-left-radius: 25px;
+      box-shadow: 0 -25px 0 0 #29304c;
+      z-index: 2;
+  }
+  
+  #lateral {
+      position: absolute;
+      width: 300px;
+      height: 100%;
+      background-image: linear-gradient(#3f496c, #29304c);
+      box-shadow: 5px 5px 5px 0px rgba(0,0,0,0);
+      z-index: 1;
+  }
+  
+  #lateral::before {
+      content: "";
+      position: absolute;
+    
+      background-color: transparent;
+      top: 35px;
+      left: 299px;
+      height: 50px;
+      width: 25px;
+      border-top-left-radius: 25px;
+      box-shadow: 0 -25px 0 0 #3f496c;
+      z-index: 1;
+  }
+  
+  .visu {
+      position: relative;
+      left: 50%;
+      top: 8px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+  }
+  
+  .button1 {
+      position: absolute;
+      top: 75px;
+      left: 25px;
+      height: 45px;
+      width: 250px;
+      background-color: #29304c;
+      z-index: 3;
+      border-radius: 20px;
+      border-style: none;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      z-index: 4 !important;
+      outline:none;
+      }
+      
+  .button1:hover {
+      transition: .5s ease;
+      background-color: #586695;
+      }
+  
+  .button2 {
+      position: absolute;
+      top: 95%;
+      left: 5px;
+      height: 50px;
+      width: 50px;
+      background-color: #29304c;
+      z-index: 3;
+      border-radius: 10px;
+      border-style: none;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      z-index: 4 !important;
+      outline:none;
+      }
+  
+  .button2:hover {
+      transition: .5s ease;
+      background-color: #586695;
+      }
+      
+  .button8 {
+      position: absolute;
+      top: 95%;
+      left: 60px;
+      height: 50px;
+      width: 50px;
+      background-color: #29304c;
+      z-index: 3;
+      border-radius: 10px;
+      border-style: none;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      z-index: 4 !important;
+      outline:none;
+      }
+      
+  .button8:hover {
+      transition: .5s ease;
+      background-color: #586695;
+      }	
+      
+  .button9 {
+      position: absolute;
+      top: 95%;
+      left: 115px;
+      height: 50px;
+      width: 50px;
+      background-color: #29304c;
+      z-index: 3;
+      border-radius: 10px;
+      border-style: none;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      z-index: 4 !important;
+      outline:none;
+      }
+      
+  .button9:hover {
+      transition: .5s ease;
+      background-color: #586695;
+      }
+      
+  .button10 {
+      position: absolute;
+      top: 95%;
+      left: 165px;
+      height: 50px;
+      width: 50px;
+      background-color: #29304c;
+      z-index: 3;
+      border-radius: 10px;
+      border-style: none;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      z-index: 4 !important;
+      outline:none;
+      }
+      
+  .button10:hover {
+      transition: .5s ease;
+      background-color: #586695;
+      }	
+      
+  #menu {
+      position: absolute;
+      width: 248px;
+      height: 75%;
+      left: 26px;
+      top: 85px;
+      background-image: linear-gradient(#6675a3, #768dd4);
+      border-radius: 10px;
+      z-index: 1 !important;
+      visibility: visible;
+      }
+          
+  #icon {
+      position: inherit;
+      top: -28px;
+      left: -15px;
+      transform: scale(0.3);
+      }
+      
+  #icon2 {
+      position: relative;
+      transform: scale(0.8);
+      }
+      
+  #icon3 {
+      position: relative;
+      top: -27px;
+      left: -13px;
+      transform: scale(0.5);
+      }
+      
+  #icon4 {
+      position: relative;
+      top: -27px;
+      left: -13px;
+      transform: scale(0.5);
+      }
+      
+  #icon5 {
+      position: relative;
+      top: -27px;
+      left: -15px;
+      transform: scale(0.5);
+      }	
+      
+  .item1 .button3{
+      position: absolute;
+      top: 50px;
+      left: 5px;
+      width: 238px;
+      height: 30px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+      
+  .item2 .button4 {
+      position: absolute;
+      top: 100px;
+      left: 5px;
+      width: 238px;
+      height: 30px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+      
+  .item3 .button5 {
+      position: absolute;
+      top: 150px;
+      left: 5px;
+      width: 238px;
+      height: 30px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+      
+  .item4 .button6{
+      position: absolute;
+      top: 200px;
+      left: 5px;
+      width: 238px;
+      height: 30px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      z-index: 5;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+      
+  .item5 .button7 {
+      position: absolute;
+      top: 250px;
+      left: 5px;
+      width: 238px;
+      height: 30px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      z-index: 5;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+      
+  .item6 .button11 {
+      position: absolute;
+      top: 300px;
+      left: 5px;
+      width: 238px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      z-index: 5;
+      border-bottom: 2px solid #3f496c;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+      
+  .item7 .button12{
+      position: absolute;
+      top: 350px;
+      left: 5px;
+      width: 238px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      z-index: 5;
+      border-bottom: 2px solid #3f496c;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+      
+  .item8 .button13{
+      position: absolute;
+      top: 400px;
+      left: 5px;
+      width: 238px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      z-index: 5;
+      border-bottom: 2px solid #3f496c;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+      
+  .item9 .button14{
+      position: absolute;
+      top: 450px;
+      left: 5px;
+      width: 238px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+  
+  .item10 .button15{
+      position: absolute;
+      top: 500px;
+      left: 5px;
+      width: 238px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }	
+  
+  .item11 .button16{
+      position: absolute;
+      top: 550px;
+      left: 5px;
+      width: 238px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+  
+  .item12 .button17{
+      position: absolute;
+      top: 600px;
+      left: 5px;
+      width: 238px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+  
+  .item13 {
+      position: absolute;
+      top: 750px;
+      left: 5px;
+      width: 238px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+  
+  .button18 {
+      margin-left: 85px;
+      margin-bottom: 5px;
+      color: #f5f5dc;
+      background-color: #f5f5dc;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;	
+  }	
+  
+  .button19 {
+      color: #fff2d6;
+      background-color: #fff2d6;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;	
+  }	
+  
+  .button20 {
+      color: #fff1dd;
+      background-color: #fff1dd;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;	
+  }
+  
+  .item14 {
+      position: absolute;
+      top: 800px;
+      left: 5px;
+      width: 238px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+  
+  .button21 {
+      margin-left: 85px;
+      margin-bottom: 5px;
+      color: #48382c;
+      background-color: #48382c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;	
+      }	
+  
+  .button22 {
+      color: #96533d;
+      background-color: #96533d;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;	
+      }		
+  
+  .button23 {
+      color: #bd7245;
+      background-color: #bd7245;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;	
+      }
+  
+  .item15 .button24{
+      position: absolute;
+      top: 650px;
+      left: 5px;
+      width: 238px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+  
+  .item16 .button25{
+      position: absolute;
+      top: 700px;
+      left: 5px;
+      width: 238px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+  
+  .item17 .button26{
+      position: absolute;
+      top: 850px;
+      left: 5px;
+      width: 238px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+  
+  .item18 .button27{
+      position: absolute;
+      top: 900px;
+      left: 5px;
+      width: 8vh;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }	
+
+      .item18 .button28{
+        position: absolute;
+        top: 900px;
+        left: 10.5vh;
+        width: 8vh;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 20px;
+        color: #8ea5f4;
+        background-color: #3f496c;
+        z-index: 5;
+        border: none;
+        border-radius: 20px;
+        outline:none;
+        }	
+  
+      * {
+      box-sizing: border-box;
+      margin: 0;
+  }
+  
+  h1, p, h2, h3, h4, ul, li, div {
+      margin: 0;
+      padding: 0;
+  }
+  
+  .loading-page {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(13, 13, 13, 0.75);
+      backdrop-filter: blur(10px);
+      display: -webkit-box;
+      display: flex;
+      -webkit-box-pack: center;
+      justify-content: center;
+       -webkit-box-align: center;
+      align-items: center;
+  }
+  
+  #loading-screen {
+      position: absolute;
+      z-index: 0;
+      /*background-color: rgba(13, 13, 13, 0.75);*/
+      background-image: url(./assets/ui/fond.jpg);
+      background-position: center;
+      background-size: cover;
+      width: 100vw;
+      height: 100vh;
+      /*left: 11.5vh;*/
+      display: -webkit-box;
+      display: flex;
+      -webkit-box-pack: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      align-items: center;
+      opacity: 1;
+      transition: 1s opacity;
+      transition-timing-function: ease-in-out;
+  }
+  
+  #loading-screen.fade-out {
+      opacity: 0;
+  }
+  
+  .loading-page .counter {
+       text-align: center;
+      left: 10%;
+  }
+  .loading-page .counter h1 {
+      color: white;
+      font-size: 20px;
+      font-weight: 300;
+      margin-top: -10px;
+  }
+  .loading-page .counter hr {
+      margin-top: 5px;
+      background: #8ea5f4;
+      height: 3px;
+      border-radius: 35px;
+      border-color: #8ea5f4;
+  }
+  .loading-page .counter {
+      position: relative;
+      width: 300px;
+  }
+  .loading-page .counter h1.abs {
+      position: absolute;
+      top: 0;
+      width: 100%;
+  }
+
+  #gui { 
+      margin-top: 50px;
+}
+
+	</style>
+  </head>
+  
+  <body>
+
+<div id="ui">
+<div id="frame">
+	
+	<span class="visu">Visualisation 1.0</span>
+	</div>
+					<div id="lateral">
+						
+					</div>
+								<div id="menus">
+				<button class="button button1">&nbsp;&nbsp;&nbsp;Paramètres
+				<div id="icon"><img src="./assets/ui/button.png"></div>
+				</button>
+				<div id="menu">
+					<span class="item1"><button class="button button3" onclick="murs_active();">Murs /On</button></span>
+					<span class="item2"><button class="button button4" onclick="murs_inactive();">Murs /Off</button></span>
+					<span class="item3"><button class="button button5" onclick="liteaux_active();">Liteaux /On</button></span>
+					<span class="item4"><button class="button button6" onclick="liteaux_inactive();">Liteaux /Off</button></span>
+					<span class="item5"><button class="button button7" onclick="tuiles_active();">Tuiles /On</button></span>
+					<span class="item6"><button class="button button11" onclick="tuiles_inactive();">Tuiles /Off</button></span>
+					<span class="item7"><button class="button button12" onclick="isolation_active();">Isolation /On</button></span>
+					<span class="item8"><button class="button button13" onclick="isolation_inactive();">Isolation /Off</button></span>
+					<span class="item9"><button class="button button14" onclick="ouvertures_active();">Ouvertures /On</button></span>
+					<span class="item10"><button class="button button15" onclick="ouvertures_inactive();">Ouvertures /Off</button></span>
+					<span class="item11"><button class="button button16" onclick="accessoires_active();">Accessoires /On</button></span>
+					<span class="item12"><button class="button button17" onclick="accessoires_inactive();">Accessoires /Off</button></span>
+					<span class="item15"><button class="button button24" onclick="lucarnes_active();">Lucarnes /On</button></span>
+					<span class="item16"><button class="button button25" onclick="lucarnes_inactive();">Lucarnes /Off</button></span>
+
+					<span class="item13">
+						<button class="button button18" onclick="raval_1();">-</button>
+						<button class="button button19" onclick="raval_2();">-</button>
+						<button class="button button20" onclick="raval_3();">-</button>
+					</span>
+
+					<span class="item14">
+						<button class="button button21" onclick="teinte_1();">-</button>
+						<button class="button button22" onclick="teinte_2();">-</button>
+						<button class="button button23" onclick="teinte_3();">-</button>
+					</span>
+
+					<span class="item17"><button class="button button26" onclick="animate2();">Travel</button></span>
+					<span class="item18"><button class="button button27" onclick="cam1();">Camera1</button>/
+						<button class="button button28" onclick="cam2();">Camera2</button></span>
+				</div>
+			
+								<button class="button button2" onclick="reset();">
+								<div id="icon2"><img src="./assets/ui/axis.png"></div></button>
+								
+								<button class="button button8" onclick="pause();">
+								<div id="icon3"><img src="./assets/ui/pause.png"></div></button>
+								
+								<button class="button button9" onclick="playback();">
+								<div id="icon4"><img src="./assets/ui/play.png"></div></button>
+								
+								<button class="button button10" onclick="rewind();">
+								<div id="icon5"><img src="./assets/ui/rewind.png"></div></button>
+								</div>
+								</div>
+
+								<section id="loading-screen">
+									<div class="loading-page">
+										<div class="counter">
+										  <h1>0%
+										  </h1>
+										  <hr/>
+										</div>
+										<div class="circles">
+											<div class="circles2"></div>
+										</div>
+									  </div>
+									</section>
+<script>
+	
+$(document).ready(function() {
+		
+		var counter = 0;
+		var c = 0;
+		var i = setInterval(function(){
+			$(".loading-page .counter h1").html(c + "%");
+			$(".loading-page .counter hr").css("width", c + "%");
+	
+		counter++;
+		c++;
+			
+		if(counter == 101) {
+			clearInterval(i);
+		}
+		}, 25);
+	});
+	
+</script>
+<script src="./fonctions.js"></script>
+<script src="./scene.js"></script>
+
+  </body>
+  </html
