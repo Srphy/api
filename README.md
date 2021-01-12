@@ -1,1 +1,1 @@
---> https://htmlpreview.github.io/?https://github.com/Srphy/api/blob/main/index.html <--
+--> https://htmlpreview.github.io/?https://github.com/Srphy/api/blob/main/index2.html <--
