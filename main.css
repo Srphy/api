@@ -1,0 +1,677 @@
+	html, body {
+    height: 100%;
+      width: 100%;
+      overflow: hidden;
+      }
+  
+  body {
+      background-color: transparent;
+      position: absolute;
+      color: #000;
+      margin: 0 !important;
+      overflow: hidden;
+      display: -webkit-box;
+      display: flex;
+      font-family: 'Share Tech Mono', monospace;
+      /*width: auto;
+      height: auto;*/
+      }
+     
+  a {
+      color: #080;
+      }
+      
+  canvas {
+      display: block;
+      }
+  
+  #ui {
+      display: visible;
+      width: 100%;
+      height: 100%;
+  }    
+
+  #frame {
+      position: absolute;
+      width: 100%;
+      height: 35px;
+      background-color: #29304c;
+      opacity: 1;
+      box-shadow: 5px 5px 5px 0px rgba(0,0,0,0);
+      z-index: 2;
+  }
+  
+  #frame::before {
+      content: "";
+      position: absolute;
+      background-color: transparent;
+      bottom: -50px;
+      height: 50px;
+      width: 25px;
+      border-top-left-radius: 25px;
+      box-shadow: 0 -25px 0 0 #29304c;
+      z-index: 2;
+  }
+  
+  #lateral {
+      position: absolute;
+      width: 300px;
+      height: 100%;
+      background-image: linear-gradient(#3f496c, #29304c);
+      box-shadow: 5px 5px 5px 0px rgba(0,0,0,0);
+      z-index: 1;
+  }
+  
+  #lateral::before {
+      content: "";
+      position: absolute;
+    
+      background-color: transparent;
+      top: 35px;
+      left: 299px;
+      height: 50px;
+      width: 25px;
+      border-top-left-radius: 25px;
+      box-shadow: 0 -25px 0 0 #3f496c;
+      z-index: 1;
+  }
+  
+  .visu {
+      position: relative;
+      left: 50%;
+      top: 8px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+  }
+  
+  .button1 {
+      position: absolute;
+      top: 75px;
+      left: 25px;
+      height: 45px;
+      width: 250px;
+      background-color: #29304c;
+      z-index: 3;
+      border-radius: 20px;
+      border-style: none;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      z-index: 4 !important;
+      outline:none;
+      }
+      
+  .button1:hover {
+      transition: .5s ease;
+      background-color: #586695;
+      }
+  
+  .button2 {
+      position: absolute;
+      top: 95%;
+      left: 5px;
+      height: 50px;
+      width: 50px;
+      background-color: #29304c;
+      z-index: 3;
+      border-radius: 10px;
+      border-style: none;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      z-index: 4 !important;
+      outline:none;
+      }
+  
+  .button2:hover {
+      transition: .5s ease;
+      background-color: #586695;
+      }
+      
+  .button8 {
+      position: absolute;
+      top: 95%;
+      left: 60px;
+      height: 50px;
+      width: 50px;
+      background-color: #29304c;
+      z-index: 3;
+      border-radius: 10px;
+      border-style: none;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      z-index: 4 !important;
+      outline:none;
+      }
+      
+  .button8:hover {
+      transition: .5s ease;
+      background-color: #586695;
+      }	
+      
+  .button9 {
+      position: absolute;
+      top: 95%;
+      left: 115px;
+      height: 50px;
+      width: 50px;
+      background-color: #29304c;
+      z-index: 3;
+      border-radius: 10px;
+      border-style: none;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      z-index: 4 !important;
+      outline:none;
+      }
+      
+  .button9:hover {
+      transition: .5s ease;
+      background-color: #586695;
+      }
+      
+  .button10 {
+      position: absolute;
+      top: 95%;
+      left: 165px;
+      height: 50px;
+      width: 50px;
+      background-color: #29304c;
+      z-index: 3;
+      border-radius: 10px;
+      border-style: none;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      z-index: 4 !important;
+      outline:none;
+      }
+      
+  .button10:hover {
+      transition: .5s ease;
+      background-color: #586695;
+      }	
+      
+  #menu {
+      position: absolute;
+      width: 248px;
+      height: 75%;
+      left: 26px;
+      top: 85px;
+      background-image: linear-gradient(#6675a3, #768dd4);
+      border-radius: 10px;
+      z-index: 1 !important;
+      visibility: visible;
+      }
+          
+  #icon {
+      position: inherit;
+      top: -28px;
+      left: -15px;
+      transform: scale(0.3);
+      }
+      
+  #icon2 {
+      position: relative;
+      transform: scale(0.8);
+      }
+      
+  #icon3 {
+      position: relative;
+      top: -27px;
+      left: -13px;
+      transform: scale(0.5);
+      }
+      
+  #icon4 {
+      position: relative;
+      top: -27px;
+      left: -13px;
+      transform: scale(0.5);
+      }
+      
+  #icon5 {
+      position: relative;
+      top: -27px;
+      left: -15px;
+      transform: scale(0.5);
+      }	
+      
+  .item1 .button3{
+      position: absolute;
+      top: 50px;
+      left: 5px;
+      width: 238px;
+      height: 30px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+      
+  .item2 .button4 {
+      position: absolute;
+      top: 100px;
+      left: 5px;
+      width: 238px;
+      height: 30px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+      
+  .item3 .button5 {
+      position: absolute;
+      top: 150px;
+      left: 5px;
+      width: 238px;
+      height: 30px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+      
+  .item4 .button6{
+      position: absolute;
+      top: 200px;
+      left: 5px;
+      width: 238px;
+      height: 30px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      z-index: 5;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+      
+  .item5 .button7 {
+      position: absolute;
+      top: 250px;
+      left: 5px;
+      width: 238px;
+      height: 30px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      z-index: 5;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+      
+  .item6 .button11 {
+      position: absolute;
+      top: 300px;
+      left: 5px;
+      width: 238px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      z-index: 5;
+      border-bottom: 2px solid #3f496c;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+      
+  .item7 .button12{
+      position: absolute;
+      top: 350px;
+      left: 5px;
+      width: 238px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      z-index: 5;
+      border-bottom: 2px solid #3f496c;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+      
+  .item8 .button13{
+      position: absolute;
+      top: 400px;
+      left: 5px;
+      width: 238px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      z-index: 5;
+      border-bottom: 2px solid #3f496c;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+      
+  .item9 .button14{
+      position: absolute;
+      top: 450px;
+      left: 5px;
+      width: 238px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+  
+  .item10 .button15{
+      position: absolute;
+      top: 500px;
+      left: 5px;
+      width: 238px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }	
+  
+  .item11 .button16{
+      position: absolute;
+      top: 550px;
+      left: 5px;
+      width: 238px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+  
+  .item12 .button17{
+      position: absolute;
+      top: 600px;
+      left: 5px;
+      width: 238px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+  
+  .item13 {
+      position: absolute;
+      top: 750px;
+      left: 5px;
+      width: 238px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+  
+  .button18 {
+      margin-left: 85px;
+      margin-bottom: 5px;
+      color: #f5f5dc;
+      background-color: #f5f5dc;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;	
+  }	
+  
+  .button19 {
+      color: #fff2d6;
+      background-color: #fff2d6;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;	
+  }	
+  
+  .button20 {
+      color: #fff1dd;
+      background-color: #fff1dd;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;	
+  }
+  
+  .item14 {
+      position: absolute;
+      top: 800px;
+      left: 5px;
+      width: 238px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+  
+  .button21 {
+      margin-left: 85px;
+      margin-bottom: 5px;
+      color: #48382c;
+      background-color: #48382c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;	
+      }	
+  
+  .button22 {
+      color: #96533d;
+      background-color: #96533d;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;	
+      }		
+  
+  .button23 {
+      color: #bd7245;
+      background-color: #bd7245;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;	
+      }
+  
+  .item15 .button24{
+      position: absolute;
+      top: 650px;
+      left: 5px;
+      width: 238px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+  
+  .item16 .button25{
+      position: absolute;
+      top: 700px;
+      left: 5px;
+      width: 238px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+  
+  .item17 .button26{
+      position: absolute;
+      top: 850px;
+      left: 5px;
+      width: 238px;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }
+  
+  .item18 .button27{
+      position: absolute;
+      top: 900px;
+      left: 5px;
+      width: 8vh;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 20px;
+      color: #8ea5f4;
+      background-color: #3f496c;
+      z-index: 5;
+      border: none;
+      border-radius: 20px;
+      outline:none;
+      }	
+
+      .item18 .button28{
+        position: absolute;
+        top: 900px;
+        left: 10.5vh;
+        width: 8vh;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 20px;
+        color: #8ea5f4;
+        background-color: #3f496c;
+        z-index: 5;
+        border: none;
+        border-radius: 20px;
+        outline:none;
+        }	
+  
+      * {
+      box-sizing: border-box;
+      margin: 0;
+  }
+  
+  h1, p, h2, h3, h4, ul, li, div {
+      margin: 0;
+      padding: 0;
+  }
+  
+  .loading-page {
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(13, 13, 13, 0.75);
+      backdrop-filter: blur(10px);
+      display: -webkit-box;
+      display: flex;
+      -webkit-box-pack: center;
+      justify-content: center;
+       -webkit-box-align: center;
+      align-items: center;
+  }
+  
+  #loading-screen {
+      position: absolute;
+      z-index: 0;
+      /*background-color: rgba(13, 13, 13, 0.75);*/
+      background-image: url(./assets/ui/fond.jpg);
+      background-position: center;
+      background-size: cover;
+      width: 100vw;
+      height: 100vh;
+      /*left: 11.5vh;*/
+      display: -webkit-box;
+      display: flex;
+      -webkit-box-pack: center;
+      justify-content: center;
+      -webkit-box-align: center;
+      align-items: center;
+      opacity: 1;
+      transition: 1s opacity;
+      transition-timing-function: ease-in-out;
+  }
+  
+  #loading-screen.fade-out {
+      opacity: 0;
+  }
+  
+  .loading-page .counter {
+       text-align: center;
+      left: 10%;
+  }
+  .loading-page .counter h1 {
+      color: white;
+      font-size: 20px;
+      font-weight: 300;
+      margin-top: -10px;
+  }
+  .loading-page .counter hr {
+      margin-top: 5px;
+      background: #8ea5f4;
+      height: 3px;
+      border-radius: 35px;
+      border-color: #8ea5f4;
+  }
+  .loading-page .counter {
+      position: relative;
+      width: 300px;
+  }
+  .loading-page .counter h1.abs {
+      position: absolute;
+      top: 0;
+      width: 100%;
+  }
+
+  #gui { 
+      margin-top: 50px;
+}

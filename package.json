@@ -1,0 +1,14 @@
+{
+  "name": "api3d",
+  "version": "1.0.0",
+  "description": "api3d",
+  "main": "scene.js",
+  "scripts": {
+    "start": "lite-server"
+  },
+  "author": "Srphy",
+  "license": "ISC",
+  "devDependencies": {
+    "lite-server": "^2.6.1"
+  }
+}
